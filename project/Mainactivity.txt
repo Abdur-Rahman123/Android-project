@@ -1,0 +1,34 @@
+package com.example.rahman.myrar;
+
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity {
+    private  flyingfish flyingfish;
+    private Handler handler=new Handler();
+    private final static long intervel=30;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        flyingfish=new flyingfish(this);
+        setContentView(flyingfish);
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        flyingfish.invalidate();
+                    }
+                });
+
+            }
+        }, 0,intervel);
+    }
+}
